@@ -1,13 +1,13 @@
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS1 = main1.c
-SRCS2 = main2.c
+SRCS1 = client.c
+SRCS2 = server.c
 
 OBJS1 = $(SRCS1:.c=.o)
 OBJS2 = $(SRCS2:.c=.o)
 
-NAME1 = program1
-NAME2 = program2
+NAME1 = client
+NAME2 = server
 
 all: $(NAME1) $(NAME2)
 
