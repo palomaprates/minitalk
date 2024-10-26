@@ -1,5 +1,4 @@
 #include "minitalk.h"
-#include <math.h>
 #include "ft_itoa.c"
 #include "ft_memset.c"
 int	ft_strlen(const char *str)
