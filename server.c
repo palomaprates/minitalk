@@ -9,39 +9,39 @@ int	ft_strlen(const char *str)
 		i++;
 	return (i);
 }
-char	binary_to_char(char *str)
+char binary_to_char(char *str)
 {
-	int	i;
+	int i;
 	int	dec;
-	int len;
-	i = 0;
+	
+	i = 0; 
 	dec = 0;
-	len = ft_strlen(str);
-	if (len == 8)
+	while (i < 8)
 	{
-		while (i < 8)
-		{
-			if (str[i] == '1')
-				dec = (dec << 1) | (str[i] - '0');
-			i++;
-		}
+		dec = (dec << 1) | (str[i] - '0'); 
+		i++;
 	}
 	return ((char)dec);
 }
-void	handle_signal(int signal)
+
+void handle_signal(int signal)
 {
-	static int	i = 0;
-	static char	bin[9] = {0};
+	static int i = 0;
+	static char bin[9];
 	char c;
+
 	if (signal == SIGUSR1)
 		bin[i] = '0';
-	if (signal == SIGUSR2)
+	else if (signal == SIGUSR2)
 		bin[i] = '1';
 	i++;
+	if (i == 8)
+	{
 		c = binary_to_char(bin);
 		write(1, &c, 1);
 		i = 0;
-		ft_memset(bin, 0, 9);
+		ft_memset(bin, 0, 9); 
+	}
 }
 
 int main()
@@ -52,5 +52,6 @@ int main()
 	signal(SIGUSR2, handle_signal);
 	while(1)
 	{
+		pause();
 	}
 }
