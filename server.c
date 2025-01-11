@@ -1,53 +1,37 @@
 #include "minitalk.h"
-#include "ft_itoa.c"
-#include "ft_memset.c"
-int	ft_strlen(const char *str)
-{
-	int	i;
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-char binary_to_char(char *str)
-{
-	int i;
-	int	dec;
 	
-	i = 0; 
-	dec = 0;
-	while (i < 8)
-	{
-		dec = (dec << 1) | (str[i] - '0'); 
-		i++;
-	}
-	return ((char)dec);
-}
-
-void handle_signal(int signal)
+void	handle_signal(int signal)
 {
-	static int i = 0;
-	static char bin[9];
-	char c;
-
-	if (signal == SIGUSR1)
-		bin[i] = '0';
-	else if (signal == SIGUSR2)
-		bin[i] = '1';
-	i++;
-	if (i == 8)
-	{
-		c = binary_to_char(bin);
-		write(1, &c, 1);
-		i = 0;
-		ft_memset(bin, 0, 9); 
-	}
+	static int	len = -1;
+	static char *final_str = NULL;
+	static int	index = -1;
+	if (len == -1)
+		to_get_len(signal, &len);
+	else
+{
+		if (index == -1){
+			final_str = malloc(sizeof(char) * len + 1);
+			index++;
+		to_get_final_str(signal, &final_str, &index);
+			return;
+		}
+		to_get_final_str(signal, &final_str, &index);
+		if (index == len){
+			write(1, final_str, len);
+			write(1, "\n", 1);
+			free(final_str);
+			final_str = NULL;
+			index = -1;
+			len = -1;
+			}
+}
 }
 
 int main()
 {
 	pid_t server_pid = getpid();
-	printf("%d\n", server_pid); //lembrar que nao posso usar o printf
+	write(1, ft_itoa(server_pid), ft_strlen(ft_itoa(server_pid)));
+	write(1, "\n", 1);
 	signal(SIGUSR1, handle_signal);
 	signal(SIGUSR2, handle_signal);
 	while(1)
