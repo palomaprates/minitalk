@@ -1,3 +1,4 @@
+#include "../minitalk.h"
 
 void	*ft_memset(void *s, int c, int n)
 {

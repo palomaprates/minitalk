@@ -1,5 +1,4 @@
-# include <stdlib.h>
-# include <unistd.h>
+#include "../minitalk.h"
 
 static int	get_len(int n)
 {
