@@ -1,7 +1,4 @@
-#include <signal.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
+#include "minitalk.h"
 
 void	to_send_len(char *str, char *server_pid)
 {
@@ -13,14 +10,13 @@ void	to_send_len(char *str, char *server_pid)
 	bits_int = 31;
 	while(str[len])
 		len++;
-	len++;
 	while(bits_int >= 0)
 	{
 		bit = (len >> bits_int) & 1;
 		if (bit == 0)
-			kill(atoi(server_pid), SIGUSR1);
+			kill(ft_atoi(server_pid), SIGUSR1);
 		else
-			kill(atoi(server_pid), SIGUSR2);
+			kill(ft_atoi(server_pid), SIGUSR2);
 		bits_int--;
 		usleep(100);
 	}
@@ -38,10 +34,12 @@ void	to_send_ch(char *str, char *server_pid)
 			while (i >= 0)
 			{
 				bit = (str[j] >> i) & 1;
-				if (bit == 0)
+				if (bit == 0){
 					kill(atoi(server_pid), SIGUSR1);
-				else
+					}
+				else{
 					kill(atoi(server_pid), SIGUSR2);
+					}
 				i--;
 				usleep(100);
 			}
@@ -52,35 +50,15 @@ void	to_send_ch(char *str, char *server_pid)
 
 int	main(int argc, char *argv[])
 {
-
 	if (argc == 3)
 	{
-		// int	i;
-		// int	j;
-		// int	bit;
 		char	*server_pid;
 		char *str;
 
-		// j = 0;
 		server_pid = argv[1];
 		str = argv[2];
 		to_send_len(str, server_pid);
 		to_send_ch(str, server_pid);
-		// while (str[j]) 
-		// {
-		// 	i = 7;
-		// 	while (i >= 0)
-		// 	{
-		// 		bit = (str[j] >> i) & 1;
-		// 		if (bit == 0)
-		// 			kill(atoi(server_pid), SIGUSR1);
-		// 		else
-		// 			kill(atoi(server_pid), SIGUSR2);
-		// 		i--;
-		// 		usleep(100);
-		// 	}
-		// 	j++;
-		// }
 	}
 }
 
