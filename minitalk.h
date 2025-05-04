@@ -1,18 +1,17 @@
 #ifndef MINITALK_H
 # define MINITALK_H
+# include <stdio.h>
+# include <unistd.h>
+# include <signal.h>
+# include <stdlib.h>
 
-#include <stdio.h>
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-
-int	ft_strlen(const char *str);
+int		ft_strlen(const char *str);
 
 char	binary_to_char(char *str);
 
-int	binary_to_int(char *str);
+int		binary_to_int(char *str);
 
-int	ft_atoi(const char *str);
+int		ft_atoi(const char *str);
 
 char	*ft_itoa(int n);
 
