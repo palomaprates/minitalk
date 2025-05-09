@@ -13,6 +13,8 @@ void	handle_signal(int signal)
 		if (index == -1)
 		{
 			final_str = malloc(sizeof(char) * len + 1);
+			if (!final_str)
+				exit(1);
 			index++;
 			return (to_get_final_str(signal, &final_str, &index));
 		}
@@ -32,10 +34,12 @@ void	handle_signal(int signal)
 int	main(void)
 {
 	pid_t	server_pid;
-
+	char *pid;
 	server_pid = getpid();
-	write(1, ft_itoa(server_pid), ft_strlen(ft_itoa(server_pid)));
+	pid = ft_itoa(server_pid);
+	write(1, pid, ft_strlen(pid));
 	write(1, "\n", 1);
+	free(pid);
 	signal(SIGUSR1, handle_signal);
 	signal(SIGUSR2, handle_signal);
 	while (1)

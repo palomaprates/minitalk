@@ -26,7 +26,10 @@ char	*ft_itoa(int n)
 	len = get_len(n);
 	str = malloc(sizeof(char) * len + 1);
 	if (!str)
+	{
+		free(str);
 		return (NULL);
+	}
 	str[len] = '\0';
 	len--;
 	if (n < 0)
@@ -42,3 +45,4 @@ char	*ft_itoa(int n)
 	}
 	return (str);
 }
+
