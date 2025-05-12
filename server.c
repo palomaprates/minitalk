@@ -1,5 +1,13 @@
 #include "minitalk.h"
 
+void	reset_str(char **final_str, int *index, int *len)
+{
+	free(*final_str);
+	*final_str = NULL;
+	*index = -1;
+	*len = -1;
+}
+
 void	handle_signal(int signal)
 {
 	static int	len = -1;
@@ -23,10 +31,7 @@ void	handle_signal(int signal)
 		{
 			write(1, final_str, len);
 			write(1, "\n", 1);
-			free(final_str);
-			final_str = NULL;
-			index = -1;
-			len = -1;
+			reset_str(&final_str, &index, &len);
 		}
 	}
 }
@@ -34,7 +39,8 @@ void	handle_signal(int signal)
 int	main(void)
 {
 	pid_t	server_pid;
-	char *pid;
+	char	*pid;
+
 	server_pid = getpid();
 	if (server_pid < 0)
 		return (0);
