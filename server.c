@@ -36,6 +36,8 @@ int	main(void)
 	pid_t	server_pid;
 	char *pid;
 	server_pid = getpid();
+	if (server_pid < 0)
+		return (0);
 	pid = ft_itoa(server_pid);
 	write(1, pid, ft_strlen(pid));
 	write(1, "\n", 1);
