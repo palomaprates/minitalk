@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pprates- <pprates-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/13 10:58:24 by pprates-          #+#    #+#             */
+/*   Updated: 2025/05/13 10:58:25 by pprates-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
 void	reset_str(char **final_str, int *index, int *len)
@@ -23,8 +35,7 @@ void	handle_signal(int signal)
 			final_str = malloc(sizeof(char) * len + 1);
 			if (!final_str)
 				exit(1);
-			index++;
-			return (to_get_final_str(signal, &final_str, &index));
+			index = 0;
 		}
 		to_get_final_str(signal, &final_str, &index);
 		if (index == len)
